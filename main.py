@@ -20,7 +20,7 @@ def analisar_temperatura(temp):
         return 'atenção'
     elif temp>=18 and temp<=30:
         return 'normal'
-    elif temp>30 and temp<35:
+    elif temp>30 and temp<=35:
         return 'atenção'
     else:
         return 'critico'    
@@ -35,7 +35,7 @@ def analisar_bateria(bat):
     if bat<20:
         return 'critico'
     elif bat>=20 and bat<=49:
-        return 'atencao'
+        return 'atenção'
     else:
         return 'normal'
 def analisar_oxigenio(ox):
@@ -84,6 +84,7 @@ print('Equipe: Equipe Apollo')
 print(f'Quantidade de ciclos analisados: {len(dados_missao)}')
 print('======================================')
 for ciclo in dados_missao:
+    pontuacoes=[]
     pont=0
     print('======================================')
     print(f'CICLO {cont}')
@@ -94,15 +95,16 @@ for ciclo in dados_missao:
     bateria=analisar_bateria(ciclo[2])
     oxigenio=analisar_oxigenio(ciclo[3])
     estabilidade=analisar_estabilidade(ciclo[4])
-    ciclos=classificar_ciclo(pont)
-    recomendacao=gerar_recomendacao(pont)
     status=[temperatura, comunicacao, bateria, oxigenio, estabilidade]
     for i in status:
         pontos=pontuar(i)
         pont+=pontos
+        pontuacoes.append(pontos)
+    ciclos=classificar_ciclo(pont)
+    recomendacao=gerar_recomendacao(pont)
     riscos.append(pont)
     for i in range(len(risco_areas)):
-        risco_areas[i]+=pont
+        risco_areas[i]+=pontuacoes[i]
     print(f"Temperatura: {ciclo[0]}°C | {temperatura}")
     print(f"Comunicação: {ciclo[1]}% | {comunicacao}")
     print(f"Bateria: {ciclo[2]}% | {bateria}")
