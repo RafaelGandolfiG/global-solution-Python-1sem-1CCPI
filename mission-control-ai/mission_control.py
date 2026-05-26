@@ -20,7 +20,7 @@ def analisar_temperatura(temp):
         return 'atenção'
     elif temp>=18 and temp<=30:
         return 'normal'
-    elif temp>30 and temp<=35:
+    elif temp>30 and temp<= 35:
         return 'atenção'
     else:
         return 'critico'    
