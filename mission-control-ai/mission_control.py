@@ -72,7 +72,43 @@ def gerar_recomendacao(pont):
     elif pont<=5:
         return "Monitorar sistemas em atenção e preparar plano de contingência."
     else:
-        return "Ativar modo de segurança e priorizar sistemas críticos."     
+        return "Ativar modo de segurança e priorizar sistemas críticos."    
+def mostrar(area, mensagem):
+    if area == 'Temperatura interna':
+        if mensagem == 'critico':
+            return 'temperatura muito instavel'
+        elif mensagem == 'atenção':
+            return 'temperatura instavel'
+        else:
+            return 'temperatura adequada'
+    elif area == 'Comunicação com a base':
+        if mensagem == 'critico':
+            return 'comunicação critica'
+        elif mensagem == 'atenção':
+            return 'rever a comunicação'
+        else:
+            return 'comunicação estavel'
+    elif area == 'Sistema de energia':
+        if mensagem == 'critico':
+            return 'energia em nivel critico'
+        elif mensagem == 'atenção':
+            return 'energia abaixo do ideal'
+        else:
+            return 'energia estavel'
+    elif area == 'Suporte de oxigênio':
+        if mensagem == 'critico':
+            return 'oxigenio em nivel critico'
+        elif mensagem == 'atenção':
+            return 'oxigenio abaixo do ideal'
+        else:
+            return 'oxigenio adequado'
+    elif area == 'Estabilidade operacional':
+        if mensagem == 'critico':
+            return 'estabilidade operacional critica'
+        elif mensagem == 'atenção':
+            return 'estabilidade reduzida'
+        else:
+            return 'estabilidade adequada'
 riscos=[]
 risco_areas=[0, 0, 0, 0, 0]
 cont=1  
@@ -105,11 +141,11 @@ for ciclo in dados_missao:
     riscos.append(pont)
     for i in range(len(risco_areas)):
         risco_areas[i]+=pontuacoes[i]
-    print(f"Temperatura: {ciclo[0]}°C | {temperatura}")
-    print(f"Comunicação: {ciclo[1]}% | {comunicacao}")
-    print(f"Bateria: {ciclo[2]}% | {bateria}")
-    print(f"Oxigênio: {ciclo[3]}% | {oxigenio}")
-    print(f"Estabilidade: {ciclo[4]}% | {estabilidade}")
+    print(f"Temperatura: {ciclo[0]}°C | {temperatura} | {mostrar(areas_monitoradas[0],temperatura)}")
+    print(f"Comunicação: {ciclo[1]}% | {comunicacao} | {mostrar(areas_monitoradas[1],comunicacao)}")
+    print(f"Bateria: {ciclo[2]}% | {bateria} | {mostrar(areas_monitoradas[2],bateria)}")
+    print(f"Oxigênio: {ciclo[3]}% | {oxigenio} | {mostrar(areas_monitoradas[3],oxigenio)}")
+    print(f"Estabilidade: {ciclo[4]}% | {estabilidade} | {mostrar(areas_monitoradas[4],estabilidade)}")
     print(f"Pontuação de risco do ciclo: {pont}")
     print(f"Classificação do ciclo: {ciclos}")
     print(f"Recomendação: {recomendacao}")
